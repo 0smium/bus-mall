@@ -1,1 +1,25 @@
 /*Stylesheet for BusMall*/
+#container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+
+.picbox {
+  /*width:30%;*/
+  float:left;
+  margin: 5px;
+  /*padding: 5px;*/
+  border: 1px solid black;
+}
+
+#first{
+
+}
+#second {
+
+}
+
+#third {
+
+}
