@@ -57,25 +57,11 @@ function populate() {
 function onClick(click) {
 
   var productIndex = listOfProducts.indexOf(click.target.id);
-  listOfProductObjects[productIndex].votes +=1;
+  listOfProductObjects[productIndex].votes +=1;  //***use something similar to this for views up above
   console.log('onClick', 'name: ' + click.target.id, ', productIndex: ' + productIndex, ', votes: ' + listOfProductObjects[productIndex].votes);
   var images = document.getElementsByTagName('img');
   populate();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 container.addEventListener('click', onClick);
 
 populate();
