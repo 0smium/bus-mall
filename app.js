@@ -13,9 +13,12 @@ function Product(name, path) {
   listOfProductObjects.push(this);
 };
 
-for (var i = 0; i < listOfProducts.length; i++) {
-  new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
+(function() {
+  for (var i = 0; i < listOfProducts.length; i++) {
+    new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
+  }
 }
+)()
 
 var first = document.getElementById('first');
 var img0 = document.createElement('img');
