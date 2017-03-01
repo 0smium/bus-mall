@@ -3,7 +3,7 @@
 var totalVotes = 0;
 var listOfProducts = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var listOfProductObjects = [];
-var container = document.getElementById('container')
+var container = document.getElementById('image-container')
 
 function Product(name, path) {
   this.name = name; //name of product/image
@@ -62,6 +62,18 @@ function onClick(click) {
   var images = document.getElementsByTagName('img');
   populate();
 }
-container.addEventListener('click', onClick);
 
+function renderResults() {
+  var ulEl = document.createElement('ul');
+
+  for(var i in listOfProductObjects) {
+    var liEl = document.createElement('li');
+    liEl.textContent = listOfProductObjects[i].name;
+
+  }
+}
+
+
+
+container.addEventListener('click', onClick);
 populate();
