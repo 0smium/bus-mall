@@ -88,7 +88,8 @@ function renderResults() {
 container.addEventListener('click', onClick);
 
 //create event listener for clicking show-results button
-
+var showResults = document.getElementById('show-results');
+showResults.addEventListener('click', renderResults);
 
 //display three random images
 populate();
