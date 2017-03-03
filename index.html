@@ -1,15 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="./reset.css"/>
   <link rel="stylesheet" href="./style.css"/>
   <title>BusMall</title>
 </head>
 <body>
-  <div id="container">
-    <div id="first" class="picbox"></div>
-    <div id="second" class="picbox"></div>
-    <div id="third" class="picbox"></div>
+  <div class="wrapper">
+    <header>
+      <section class="logo-heading">
+        <img src="./bus-picture-drawing.jpg" alt="logo">
+        <h2>BusMall</h2>
+      </section>
+      <nav>
+        <span>Home</span>
+        <span class="active">Products</span>
+        <span>About</span>
+        <span>Contact</span>
+      </nav>
+    </header>
+    <main>
+      <aside class="left" id="aside-left">
+        <div id="results">
+          <h3>Instructions:</h3>
+          <p>You are presented with three novel products.  Simply click on your favorite in each set.  Click on your favorite each time.</p><p>Once you have clicked at least 15 times, the 'show results' button will be available.  Press it to see your results.</p>
+          <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+        </div>
+      </aside>
+      <section class="right">
+        <section id="image-container">
+          <div id="first" class="picbox"></div>
+          <div id="second" class="picbox"></div>
+          <div id="third" class="picbox"></div>
+        </section>
+        <section class="button" id="button">
+          <!-- <button id="show-results">show results</button> -->
+        </section>
+        <section class="text-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </section>
+      </section>
+    </main>
+    <footer>
+      <h1>Footer</h1>
+    </footer>
+    <script src="./app.js"></script>
   </div>
-  <script src="./app.js"></script>
 </body>
 </html>

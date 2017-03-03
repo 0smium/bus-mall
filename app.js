@@ -3,19 +3,38 @@
 var totalVotes = 0;
 var listOfProducts = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var listOfProductObjects = [];
+var container = document.getElementById('image-container')
+//create event listener when clicking on images
+container.addEventListener('click', onClick);
 
-var product = function (name, path) {
+function Product(name, path) {
   this.name = name; //name of product/image
   this.path = path; //relative path to jpg
   this.votes = 0; //clicks for this product
+  this.views = 0; //number of times image has been shown
   listOfProductObjects.push(this);
 };
 
-for (var i = 0; i < listOfProducts.length; i++) {
-  new product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
+(function() {
+  for (var i = 0; i < listOfProducts.length; i++) {
+    new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
+  }
 }
+)()
 
-var populate = function () {
+var first = document.getElementById('first');
+var img0 = document.createElement('img');
+first.appendChild(img0);
+
+var second = document.getElementById('second');
+var img1 = document.createElement('img');
+second.appendChild(img1);
+
+var third = document.getElementById('third');
+var img2 = document.createElement('img');
+third.appendChild(img2);
+
+function populate() {
 
   var rand = [];
   while (rand.length < 3) {
@@ -25,21 +44,68 @@ var populate = function () {
     }
     continue;
   }
-  console.log(rand)
+  // console.log(rand)
 
-  var first = document.getElementById('first');
-  var img0 = document.createElement('img');
-  img0.src = listOfProductObjects[rand[0]].path
-  first.appendChild(img0);
+  img0.src = listOfProductObjects[rand[0]].path;
+  img0.id = listOfProductObjects[rand[0]].name;
 
-  var second = document.getElementById('second');
-  var img1 = document.createElement('img');
   img1.src = listOfProductObjects[rand[1]].path
-  second.appendChild(img1);
+  img1.id = listOfProductObjects[rand[1]].name;
 
-  var third = document.getElementById('third');
-  var img2 = document.createElement('img');
   img2.src = listOfProductObjects[rand[2]].path
-  third.appendChild(img2);
-};
-populate()
+  img2.id = listOfProductObjects[rand[2]].name;
+}
+
+var clicks = 0;
+var buttonSection = document.getElementById('button');
+
+function checkForClicks() {
+  if (clicks === 15) {
+    console.log(clicks);
+    var button = document.createElement('button');
+    button.id = 'show-results';
+    button.textContent = 'Show Results'
+    buttonSection.appendChild(button);
+    //create event listener for clicking show-results button
+    button.addEventListener('click', renderResults);
+    container.removeEventListener('click', onClick);
+  }
+}
+
+function onClick(click) {
+
+  clicks+=1;
+  console.log('clicks: ' + clicks)
+  var productIndex = listOfProducts.indexOf(click.target.id);
+  listOfProductObjects[productIndex].votes +=1;  //***use something similar to this for views up above
+  // console.log('onClick', 'name: ' + click.target.id, ', productIndex: ' + productIndex, ', votes: ' + listOfProductObjects[productIndex].votes);
+  var images = document.getElementsByTagName('img');
+  if (clicks < 16) {
+    populate();
+  }
+  checkForClicks()
+}
+
+function renderResults() {
+  var aside = document.getElementById('aside-left');
+  var results = document.getElementById('results');
+  results.remove();
+  var results = document.createElement('div');
+  results.id = 'results';
+  aside.appendChild(results);
+  var resultsH2 = document.createElement('h2');
+  resultsH2.textContent = 'Results:'
+  results.appendChild(resultsH2);
+
+  var ulEl = document.createElement('ul');
+  results.appendChild(ulEl);
+
+  for(var i in listOfProductObjects) {
+    var liEl = document.createElement('li');
+    liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
+    ulEl.appendChild(liEl);
+  }
+}
+
+//display three random images
+populate();
