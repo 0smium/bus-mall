@@ -4,6 +4,9 @@ var totalVotes = 0;
 var listOfProducts = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var listOfProductObjects = [];
 var container = document.getElementById('image-container')
+//create event listener when clicking on images
+container.addEventListener('click', onClick);
+
 
 function Product(name, path) {
   this.name = name; //name of product/image
@@ -54,13 +57,34 @@ function populate() {
   img2.id = listOfProductObjects[rand[2]].name;
 }
 
+var clicks = 0;
+var buttonSection = document.getElementById('button');
+
+function checkForClicks() {
+  if (clicks === 15) {
+    console.log(clicks);
+    var button = document.createElement('button');
+    button.id = 'show-results';
+    button.textContent = 'Show Results'
+    buttonSection.appendChild(button);
+    //create event listener for clicking show-results button
+    button.addEventListener('click', renderResults);
+    container.removeEventListener('click', onClick);
+  }
+}
+
 function onClick(click) {
 
+  clicks+=1;
+  console.log('clicks: ' + clicks)
   var productIndex = listOfProducts.indexOf(click.target.id);
   listOfProductObjects[productIndex].votes +=1;  //***use something similar to this for views up above
-  console.log('onClick', 'name: ' + click.target.id, ', productIndex: ' + productIndex, ', votes: ' + listOfProductObjects[productIndex].votes);
+  // console.log('onClick', 'name: ' + click.target.id, ', productIndex: ' + productIndex, ', votes: ' + listOfProductObjects[productIndex].votes);
   var images = document.getElementsByTagName('img');
-  populate();
+  if (clicks < 16) {
+    populate();
+  }
+  checkForClicks()
 }
 
 function renderResults() {
@@ -84,12 +108,6 @@ function renderResults() {
   }
 }
 
-//create event listener when clicking on images
-container.addEventListener('click', onClick);
-
-//create event listener for clicking show-results button
-var showResults = document.getElementById('show-results');
-showResults.addEventListener('click', renderResults);
 
 //display three random images
 populate();
