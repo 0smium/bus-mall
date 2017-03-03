@@ -7,7 +7,6 @@ var container = document.getElementById('image-container')
 //create event listener when clicking on images
 container.addEventListener('click', onClick);
 
-
 function Product(name, path) {
   this.name = name; //name of product/image
   this.path = path; //relative path to jpg
@@ -107,7 +106,6 @@ function renderResults() {
     ulEl.appendChild(liEl);
   }
 }
-
 
 //display three random images
 populate();
