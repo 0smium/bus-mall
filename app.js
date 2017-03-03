@@ -64,16 +64,31 @@ function onClick(click) {
 }
 
 function renderResults() {
+  var aside = document.getElementById('aside-left');
+  var results = document.getElementById('results');
+  results.remove();
+  var results = document.createElement('div');
+  results.id = 'results';
+  aside.appendChild(results);
+  var resultsH2 = document.createElement('h2');
+  resultsH2.textContent = 'Results:'
+  results.appendChild(resultsH2);
+
   var ulEl = document.createElement('ul');
+  results.appendChild(ulEl);
 
   for(var i in listOfProductObjects) {
     var liEl = document.createElement('li');
-    liEl.textContent = listOfProductObjects[i].name;
-
+    liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
+    ulEl.appendChild(liEl);
   }
 }
 
-
-
+//create event listener when clicking on images
 container.addEventListener('click', onClick);
+
+//create event listener for clicking show-results button
+
+
+//display three random images
 populate();
