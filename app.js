@@ -103,6 +103,7 @@ function renderResults() {
   for(var i in listOfProductObjects) {
     var liEl = document.createElement('li');
     liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
+    // voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
     ulEl.appendChild(liEl);
   }
 }
@@ -120,7 +121,7 @@ var voteChart = new Chart(ctx, {
     labels: listOfProducts, // This will hold the name of each product image
     datasets: [{
       label: '# of Votes',
-      data: [2, 3, 3, 5, 2, 3, 5, 6, 3, 3, 2, 1, 3, 2, 1, 5, 1, 2, 1, 2], // This will hold the votes for each product image
+      data: [2, 3, 3, 5, 2, 3, 5, 6, 3, 3, 2, 1, 3, 2, 1, 5, 1, 2, 0, 2], // This will hold the votes for each product image
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
