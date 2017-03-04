@@ -1,5 +1,5 @@
 // JavaScript for BusMall
-
+var ctx = document.getElementById('voteChart').getContext('2d');
 var totalVotes = 0;
 var listOfProducts = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var listOfProductObjects = [];
@@ -103,7 +103,8 @@ function renderResults() {
   for(var i in listOfProductObjects) {
     var liEl = document.createElement('li');
     liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
-    // voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
+    voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
+    voteChart.update();
     ulEl.appendChild(liEl);
   }
 }
@@ -111,17 +112,14 @@ function renderResults() {
 //display three random images
 populate();
 
-
-var ctx = document.getElementById('voteChart').getContext('2d');
-
-// myChart.data.datasets[0].data => will get you the data array
 var voteChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: listOfProducts, // This will hold the name of each product image
+    labels: listOfProducts, // loads array of list of products for which the product constructor above also relies
     datasets: [{
       label: '# of Votes',
-      data: [2, 3, 3, 5, 2, 3, 5, 6, 3, 3, 2, 1, 3, 2, 1, 5, 1, 2, 0, 2], // This will hold the votes for each product image
+      data: [], // Blank until updated by renderResults function above
+      // data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], // Zeroed dataset for testing purposes
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -168,5 +166,14 @@ var voteChart = new Chart(ctx, {
       ],
       borderWidth: 1
     }]
-  }
+  },
+  options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
 });
