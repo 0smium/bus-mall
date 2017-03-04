@@ -48,12 +48,15 @@ function populate() {
 
   img0.src = listOfProductObjects[rand[0]].path;
   img0.id = listOfProductObjects[rand[0]].name;
+  listOfProductObjects[rand[0]].views++;
 
   img1.src = listOfProductObjects[rand[1]].path
   img1.id = listOfProductObjects[rand[1]].name;
+  listOfProductObjects[rand[1]].views++;
 
   img2.src = listOfProductObjects[rand[2]].path
   img2.id = listOfProductObjects[rand[2]].name;
+  listOfProductObjects[rand[2]].views++;
 }
 
 var clicks = 0;
