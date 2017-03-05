@@ -19,8 +19,13 @@ function Product(name, path) {
   for (var i = 0; i < listOfProducts.length; i++) {
     new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
   }
-}
-)()
+  var stringifiedProducts = localStorage.getItem('stringifiedProducts');
+  var parsedProducts = JSON.parse(stringifiedProducts);
+  for (var i = 0; i < parsedProducts.length; i++) {
+    listOfProductObjects[i].votes = parsedProducts[i].votes;
+    listOfProductObjects[i].views = parsedProducts[i].views;
+  };
+})();
 
 var first = document.getElementById('first');
 var img0 = document.createElement('img');
@@ -110,6 +115,7 @@ function renderResults() {
     voteChart.update();
     ulEl.appendChild(liEl);
   }
+  storeData();
 }
 
 //display three random images
@@ -180,3 +186,10 @@ var voteChart = new Chart(ctx, {
         }
     }
 });
+
+//push data to local storage
+function storeData() {
+ var stringifiedProducts = JSON.stringify(listOfProductObjects);
+ localStorage.setItem('stringifiedProducts', stringifiedProducts);
+ console.log(storeData);
+};
