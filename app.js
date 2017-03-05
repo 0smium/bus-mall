@@ -19,12 +19,15 @@ function Product(name, path) {
   for (var i = 0; i < listOfProducts.length; i++) {
     new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
   }
-  var stringifiedProducts = localStorage.getItem('stringifiedProducts');
-  var parsedProducts = JSON.parse(stringifiedProducts);
-  for (var i = 0; i < parsedProducts.length; i++) {
-    listOfProductObjects[i].votes = parsedProducts[i].votes;
-    listOfProductObjects[i].views = parsedProducts[i].views;
-  };
+  if (typeof(localStorage.getItem('stringifiedProducts')) === 'string') {
+    var stringifiedProducts = localStorage.getItem('stringifiedProducts');
+    var parsedProducts = JSON.parse(stringifiedProducts);
+    for (var i = 0; i < parsedProducts.length; i++) {
+      listOfProductObjects[i].votes = parsedProducts[i].votes;
+      listOfProductObjects[i].views = parsedProducts[i].views;
+    };
+  }
+  // voteChart.update();
 })();
 
 var first = document.getElementById('first');
@@ -108,15 +111,19 @@ function renderResults() {
   var ulEl = document.createElement('ul');
   results.appendChild(ulEl);
 
+  for(var j = 0; j < listOfProductObjects.length; j++) {
+    voteChart.data.datasets[0].data.pop();
+  };
+
   for(var i in listOfProductObjects) {
     var liEl = document.createElement('li');
     liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
     voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
     voteChart.update();
     ulEl.appendChild(liEl);
-  }
+  };
   storeData();
-}
+};
 
 //display three random images
 populate();
@@ -192,4 +199,9 @@ function storeData() {
  var stringifiedProducts = JSON.stringify(listOfProductObjects);
  localStorage.setItem('stringifiedProducts', stringifiedProducts);
  console.log(storeData);
+};
+
+for(var i in listOfProductObjects) {
+  voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
+  voteChart.update();
 };
