@@ -19,8 +19,16 @@ function Product(name, path) {
   for (var i = 0; i < listOfProducts.length; i++) {
     new Product(listOfProducts[i], './assets/' + listOfProducts[i] + '.jpg');
   }
-}
-)()
+  if (typeof(localStorage.getItem('stringifiedProducts')) === 'string') {
+    var stringifiedProducts = localStorage.getItem('stringifiedProducts');
+    var parsedProducts = JSON.parse(stringifiedProducts);
+    for (var i = 0; i < parsedProducts.length; i++) {
+      listOfProductObjects[i].votes = parsedProducts[i].votes;
+      listOfProductObjects[i].views = parsedProducts[i].views;
+    };
+  }
+  // voteChart.update();
+})();
 
 var first = document.getElementById('first');
 var img0 = document.createElement('img');
@@ -48,12 +56,15 @@ function populate() {
 
   img0.src = listOfProductObjects[rand[0]].path;
   img0.id = listOfProductObjects[rand[0]].name;
+  listOfProductObjects[rand[0]].views++;
 
   img1.src = listOfProductObjects[rand[1]].path
   img1.id = listOfProductObjects[rand[1]].name;
+  listOfProductObjects[rand[1]].views++;
 
   img2.src = listOfProductObjects[rand[2]].path
   img2.id = listOfProductObjects[rand[2]].name;
+  listOfProductObjects[rand[2]].views++;
 }
 
 var clicks = 0;
@@ -100,14 +111,19 @@ function renderResults() {
   var ulEl = document.createElement('ul');
   results.appendChild(ulEl);
 
+  for(var j = 0; j < listOfProductObjects.length; j++) {
+    voteChart.data.datasets[0].data.pop();
+  };
+
   for(var i in listOfProductObjects) {
     var liEl = document.createElement('li');
     liEl.textContent = listOfProductObjects[i].name + ': ' + listOfProductObjects[i].votes;
     voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
     voteChart.update();
     ulEl.appendChild(liEl);
-  }
-}
+  };
+  storeData();
+};
 
 //display three random images
 populate();
@@ -177,3 +193,15 @@ var voteChart = new Chart(ctx, {
         }
     }
 });
+
+//push data to local storage
+function storeData() {
+ var stringifiedProducts = JSON.stringify(listOfProductObjects);
+ localStorage.setItem('stringifiedProducts', stringifiedProducts);
+ console.log(storeData);
+};
+
+for(var i in listOfProductObjects) {
+  voteChart.data.datasets[0].data.push(listOfProductObjects[i].votes);
+  voteChart.update();
+};
